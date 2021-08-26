@@ -1,7 +1,7 @@
 #pragma once
 #include "FlowerPlant.h"
 
-class FlowerGift : public FlowerPlant, public CObject {
+class FlowerGift : public FlowerPlant {
 public:
 	FlowerGift(void);
 

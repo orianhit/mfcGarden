@@ -3,6 +3,8 @@
 #include "PlantShopDlg.h"
 #include "AbstractPlant.h"
 
+IMPLEMENT_SERIAL(SpicePlant, CObject, 0)
+
 SpicePlant::SpicePlant() {}
 
 SpicePlant::SpicePlant(const SpicePlant& msg) {

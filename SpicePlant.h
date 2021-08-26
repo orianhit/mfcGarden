@@ -18,8 +18,8 @@ public:
 	virtual void SetText(CString);
 	virtual CString GetText()const;
 
-	virtual void SetPrice(int) = 0;
-	virtual int GetPrice() const = 0;
+	virtual void SetPrice(int);
+	virtual int GetPrice() const;
 
 	virtual void Draw(CPaintDC*, int x, int y);
 	virtual void DrawNumber(CPaintDC*, int x, int y, CString);

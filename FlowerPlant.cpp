@@ -2,6 +2,8 @@
 #include "FlowerPlant.h"
 #include "PlantShopDlg.h"
 
+IMPLEMENT_SERIAL(FlowerPlant, CObject, 0)
+
 FlowerPlant::FlowerPlant() { }
 
 FlowerPlant::FlowerPlant(const FlowerPlant& other) {
