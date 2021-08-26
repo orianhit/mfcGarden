@@ -8,24 +8,19 @@ public:
 
 	FlowerPlant(const FlowerPlant&);
 
-	FlowerPlant(CString, COLORREF, int, int, int, int, int, int);
+	FlowerPlant(CString, int, int, int, int);
 
 	virtual int GetPrice()const;
 	virtual CString GetText()const;
 	int GetDay()const;
 	int GetMonth()const;
 	int GetYear()const;
-	int GetHours()const;
-	int GetMinutes()const;
 
 	virtual void SetPrice(int);
 	virtual void SetText(CString);
-	void SetPrice(int);
 	void SetDay(int);
 	void SetMonth(int);
 	void SetYear(int);
-	void SetHours(int);
-	void SetMinutes(int);
 
 	virtual ~FlowerPlant() {};
 
@@ -39,6 +34,6 @@ protected:
 	DECLARE_SERIAL(FlowerPlant);
 	CString txt;
 	int price;
-	int day, month, year, hours, minutes;
+	int day, month, year;
 };
 

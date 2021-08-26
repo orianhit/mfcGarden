@@ -2,8 +2,6 @@
 #include "FlowerPlant.h"
 #include "PlantShopDlg.h"
 
-IMPLEMENT_SERIAL(FlowerPlant, CObject, 0)
-
 FlowerPlant::FlowerPlant() { }
 
 FlowerPlant::FlowerPlant(const FlowerPlant& other) {
@@ -11,17 +9,13 @@ FlowerPlant::FlowerPlant(const FlowerPlant& other) {
 	this->day = other.day;
 	this->month = other.month;
 	this->year = other.year;
-	this->hours = other.hours;
-	this->minutes = other.minutes;
 }
 
-FlowerPlant::FlowerPlant(CString txt, COLORREF color, int price, int day, int month, int year, int hours, int minutes) {
+FlowerPlant::FlowerPlant(CString txt, int price, int day, int month, int year) {
 	this->price = price;
 	this->day = day;
 	this->month = month;
 	this->year = year;
-	this->hours = hours;
-	this->minutes = minutes;
 }
 
 int FlowerPlant::GetPrice()const {
@@ -42,31 +36,17 @@ int FlowerPlant::GetYear()const {
 
 }
 
-int FlowerPlant::GetHours()const {
-	return this->hours;
-
-}
-
-int FlowerPlant::GetMinutes()const {
-	return this->minutes;
-
-}
-
 CString FlowerPlant::GetText()const {
 	return this->txt;
-}
-
-int FlowerPlant::GetPrice()const {
-	return this->price;
 }
 
 void FlowerPlant::Serialize(CArchive& ar) {
 	CObject::Serialize(ar);
 	if (ar.IsStoring()) {
-		ar << this->txt << this->price << this->year << this->month << this->day << this->hours << this->minutes;
+		ar << this->txt << this->price << this->year << this->month << this->day;
 	}
 	else {
-		ar >> this->txt >> this->price >> this->year >> this->month >> this->day >> this->hours >> this->minutes;
+		ar >> this->txt >> this->price >> this->year >> this->month >> this->day;
 
 	}
 }
@@ -76,10 +56,8 @@ void FlowerPlant::Draw(CPaintDC* points, int x, int y) {
 	Syear.Format(_T("%d"), year);
 	Smonth.Format(_T("%d"), month);
 	Sday.Format(_T("%d"), day);
-	Shours.Format(_T("%d"), hours);
-	Sminutes.Format(_T("%d"), minutes);
 
-	points->TextOutW(x, y, Syear + L"/" + Smonth + L"/" + Sday + L" " + Shours + L":" + Sminutes);
+	points->TextOutW(x, y, Syear + L"/" + Smonth + L"/" + Sday );
 	points->TextOutW(x, y + 20, this->txt);
 }
 
@@ -95,12 +73,6 @@ void FlowerPlant::SetMonth(int month) {
 }
 void FlowerPlant::SetYear(int year) {
 	this->year = year;
-}
-void FlowerPlant::SetHours(int hours) {
-	this->hours = hours;
-}
-void FlowerPlant::SetMinutes(int minutes) {
-	this->minutes = minutes;
 }
 void FlowerPlant::SetText(CString txt) {
 	this->txt = txt;

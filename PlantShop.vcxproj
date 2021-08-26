@@ -184,15 +184,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AbstractPlant.h" />
+    <ClInclude Include="ColorFlower.h" />
+    <ClInclude Include="FlowerGift.h" />
+    <ClInclude Include="FlowerPlant.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="PlantShop.h" />
     <ClInclude Include="PlantShopDlg.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="SpicePlant.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AbstractPlant.cpp" />
+    <ClCompile Include="ColorFlower.cpp" />
+    <ClCompile Include="FlowerGift.cpp" />
+    <ClCompile Include="FlowerPlant.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -201,6 +207,7 @@
     </ClCompile>
     <ClCompile Include="PlantShop.cpp" />
     <ClCompile Include="PlantShopDlg.cpp" />
+    <ClCompile Include="SpicePlant.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PlantShop.rc" />
@@ -210,6 +217,9 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\PlantShop.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include=".gitignore" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

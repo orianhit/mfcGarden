@@ -1,12 +1,12 @@
 #pragma once
 #include "FlowerPlant.h"
-class colorFlower : public FlowerPlant, public CObject {
+class ColorFlower : public FlowerPlant {
 public:
-	colorFlower(void);
+	ColorFlower(void);
 
-	colorFlower(const colorFlower&);
+	ColorFlower(const ColorFlower&);
 
-	colorFlower(CString, int, int, int, int, int, int, COLORREF);
+	ColorFlower(CString, int, int, int, int, COLORREF);
 
 	COLORREF GetColor()const;
 	void SetColor(COLORREF color);

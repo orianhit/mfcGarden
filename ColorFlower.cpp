@@ -1,24 +1,23 @@
 #include "pch.h"
 #include "ColorFlower.h"
 
-
 ColorFlower::ColorFlower() { }
 
-ColorFlower::ColorFlower(const ColorFlower& other) : FlowerPlant(other.txt, other.price, other.day, other.month, other.year, other.hours, other.minutes) {
+ColorFlower::ColorFlower(const ColorFlower& other) : FlowerPlant(other.txt, other.price, other.day, other.month, other.year) {
 	this->color = other.color;
 }
 
-ColorFlower::ColorFlower(CString txt, int price, int day, int month, int year, int hours, int minutes, COLORREF color) : FlowerPlant(txt, price, day, month, year, hours, minutes) {
+ColorFlower::ColorFlower(CString txt, int price, int day, int month, int year, COLORREF color) : FlowerPlant(txt, price, day, month, year) {
 	this->color = color;
 }
 
 void ColorFlower::Serialize(CArchive& ar) {
 	CObject::Serialize(ar);
 	if (ar.IsStoring()) {
-		ar << this->txt << this->price << this->year << this->month << this->day << this->hours << this->minutes << this->color;
+		ar << this->txt << this->price << this->year << this->month << this->day << this->color;
 	}
 	else {
-		ar >> this->txt >> this->price >> this->year >> this->month >> this->day >> this->hours >> this->minutes >> this->color;
+		ar >> this->txt >> this->price >> this->year >> this->month >> this->day >> this->color;
 	}
 }
 
@@ -27,11 +26,9 @@ void ColorFlower::Draw(CPaintDC* points, int x, int y) {
 	Syear.Format(_T("%d"), year);
 	Smonth.Format(_T("%d"), month);
 	Sday.Format(_T("%d"), day);
-	Shours.Format(_T("%d"), hours);
-	Sminutes.Format(_T("%d"), minutes);
 
 	points->SetTextColor(this->color);
-	points->TextOutW(x, y, Syear + L"/" + Smonth + L"/" + Sday + L" " + Shours + L":" + Sminutes);
+	points->TextOutW(x, y, Syear + L"/" + Smonth + L"/" + Sday);
 	points->TextOutW(x, y + 20, this->txt);
 }
 
