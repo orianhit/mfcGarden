@@ -6,7 +6,7 @@ public:
 
 	ColorFlower(const ColorFlower&);
 
-	ColorFlower(CString, int, int, int, int, COLORREF);
+	ColorFlower(CString, int, int, int, COLORREF);
 
 	COLORREF GetColor()const;
 	void SetColor(COLORREF color);

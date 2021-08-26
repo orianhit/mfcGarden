@@ -7,21 +7,15 @@ IMPLEMENT_SERIAL(FlowerPlant, CObject, 0)
 FlowerPlant::FlowerPlant() { }
 
 FlowerPlant::FlowerPlant(const FlowerPlant& other) {
-	this->price = other.price;
 	this->day = other.day;
 	this->month = other.month;
 	this->year = other.year;
 }
 
-FlowerPlant::FlowerPlant(CString txt, int price, int day, int month, int year) {
-	this->price = price;
+FlowerPlant::FlowerPlant(CString name, int day, int month, int year) {
 	this->day = day;
 	this->month = month;
 	this->year = year;
-}
-
-int FlowerPlant::GetPrice()const {
-	return this->day;
 }
 
 int FlowerPlant::GetDay()const {
@@ -38,17 +32,17 @@ int FlowerPlant::GetYear()const {
 
 }
 
-CString FlowerPlant::GetText()const {
-	return this->txt;
+CString FlowerPlant::GetName()const {
+	return this->name;
 }
 
 void FlowerPlant::Serialize(CArchive& ar) {
 	CObject::Serialize(ar);
 	if (ar.IsStoring()) {
-		ar << this->txt << this->price << this->year << this->month << this->day;
+		ar << this->name << this->year << this->month << this->day;
 	}
 	else {
-		ar >> this->txt >> this->price >> this->year >> this->month >> this->day;
+		ar >> this->name >> this->year >> this->month >> this->day;
 
 	}
 }
@@ -60,7 +54,7 @@ void FlowerPlant::Draw(CPaintDC* points, int x, int y) {
 	Sday.Format(_T("%d"), day);
 
 	points->TextOutW(x, y, Syear + L"/" + Smonth + L"/" + Sday );
-	points->TextOutW(x, y + 20, this->txt);
+	points->TextOutW(x, y + 20, this->name);
 }
 
 void FlowerPlant::DrawNumber(CPaintDC* points, int x, int y, CString number) {
@@ -76,9 +70,6 @@ void FlowerPlant::SetMonth(int month) {
 void FlowerPlant::SetYear(int year) {
 	this->year = year;
 }
-void FlowerPlant::SetText(CString txt) {
-	this->txt = txt;
-}
-void FlowerPlant::SetPrice(int price) {
-	this->price = price;
+void FlowerPlant::SetName(CString name) {
+	this->name = name;
 }

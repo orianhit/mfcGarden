@@ -9,14 +9,14 @@ SpicePlant::SpicePlant() {}
 
 SpicePlant::SpicePlant(const SpicePlant& msg) {
 	this->color = msg.GetColor();
-	this->txt = msg.GetText();
-	this->price = msg.GetPrice();
+	this->name = msg.GetName();
+	this->quantity = msg.GetQuantity();
 }
 
-SpicePlant::SpicePlant(CString txt, COLORREF color, int price) {
+SpicePlant::SpicePlant(CString name, COLORREF color, int quantity) {
 	this->color = color;
-	this->txt = txt;
-	this->price = price;
+	this->name = name;
+	this->quantity = quantity;
 }
 
 void SpicePlant::SetColor(COLORREF color) {
@@ -27,25 +27,25 @@ COLORREF SpicePlant::GetColor()const {
 	return this->color;
 }
 
-void SpicePlant::SetText(CString txt) {
-	this->txt = txt;
+void SpicePlant::SetName(CString name) {
+	this->name = name;
 }
 
-CString SpicePlant::GetText()const {
-	return this->txt;
+CString SpicePlant::GetName()const {
+	return this->name;
 }
 
-void SpicePlant::SetPrice(int price) {
-	this->price = price;
+void SpicePlant::SetQuantity(int quantity) {
+	this->quantity = quantity;
 }
 
-int SpicePlant::GetPrice() const {
-	return this->price;
+int SpicePlant::GetQuantity() const {
+	return this->quantity;
 }
 
 void SpicePlant::Draw(CPaintDC* points, int x, int y) {
 	points->SetTextColor(this->color);
-	points->TextOutW(x, y, this->txt);
+	points->TextOutW(x, y, this->name);
 }
 
 void SpicePlant::DrawNumber(CPaintDC* points, int x, int y, CString number) {
@@ -56,9 +56,9 @@ void SpicePlant::DrawNumber(CPaintDC* points, int x, int y, CString number) {
 void SpicePlant::Serialize(CArchive& ar) {
 	CObject::Serialize(ar);
 	if (ar.IsStoring()) {
-		ar << this->txt << this->color << this->price;
+		ar << this->name << this->color << this->quantity;
 	}
 	else {
-		ar >> this->txt >> this->color << this->price;
+		ar >> this->name >> this->color << this->quantity;
 	}
 }

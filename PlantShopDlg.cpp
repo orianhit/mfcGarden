@@ -11,6 +11,7 @@
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
+#include "InsertDlg.h"
 
 
 // CAboutDlg dialog used for App About
@@ -158,5 +159,6 @@ HCURSOR CPlantShopDlg::OnQueryDragIcon()
 
 void CPlantShopDlg::OnBnClickedButton1()
 {
-	// TODO: Add your control notification handler code here
+	InsertDlg insertDlg;
+	insertDlg.DoModal();
 }

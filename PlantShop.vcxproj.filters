@@ -48,6 +48,9 @@
     <ClInclude Include="ColorFlower.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="InsertDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PlantShop.cpp">
@@ -69,6 +72,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ColorFlower.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="InsertDlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -7,7 +7,7 @@ public:
 
 	FlowerGift(const FlowerGift&);
 
-	FlowerGift(CString, int, int, int, int, CString);
+	FlowerGift(CString, int, int, int, CString);
 
 	CString GetGreetingMsg() const;
 	void SetGreetingMsg(CString);

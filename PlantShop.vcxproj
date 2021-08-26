@@ -188,6 +188,7 @@
     <ClInclude Include="FlowerGift.h" />
     <ClInclude Include="FlowerPlant.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="InsertDlg.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="PlantShop.h" />
     <ClInclude Include="PlantShopDlg.h" />
@@ -199,6 +200,7 @@
     <ClCompile Include="ColorFlower.cpp" />
     <ClCompile Include="FlowerGift.cpp" />
     <ClCompile Include="FlowerPlant.cpp" />
+    <ClCompile Include="InsertDlg.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

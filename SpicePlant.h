@@ -15,11 +15,11 @@ public:
 	virtual void SetColor(COLORREF);
 	virtual COLORREF GetColor()const;
 
-	virtual void SetText(CString);
-	virtual CString GetText()const;
+	virtual void SetName(CString);
+	virtual CString GetName()const;
 
-	virtual void SetPrice(int);
-	virtual int GetPrice() const;
+	virtual void SetQuantity(int);
+	virtual int GetQuantity() const;
 
 	virtual void Draw(CPaintDC*, int x, int y);
 	virtual void DrawNumber(CPaintDC*, int x, int y, CString);
@@ -28,7 +28,7 @@ public:
 
 protected:
 	COLORREF color;
-	CString txt;
-	int price;
+	CString name;
+	int quantity;
 	DECLARE_SERIAL(SpicePlant);
 };
