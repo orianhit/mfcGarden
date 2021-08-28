@@ -23,7 +23,6 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	CEdit plantName;
-	afx_msg void OnEnChangePlantName();
 	CMFCColorButton plantColor;
 	CEdit plantGreeting;
 	CMonthCalCtrl plantDate;
@@ -38,4 +37,10 @@ public:
 	CButton giftFlowerOption;
 	CButton spiceOption;
 	CEdit plantQuantity;
+
+	COleDateTime date;
+	CString name;
+	CString greeting;
+	int quantity;
+	int type;
 };

@@ -1,9 +1,9 @@
 #pragma once
 
 #include "pch.h"
-#include "AbstractPlant.h"
+#include "BasePlant.h"
 
-class SpicePlant : public AbstractPlant, public CObject {
+class SpicePlant : public BasePlant {
 public:
 	SpicePlant(void);
 	SpicePlant(const SpicePlant&);
@@ -14,9 +14,6 @@ public:
 
 	virtual void SetColor(COLORREF);
 	virtual COLORREF GetColor()const;
-
-	virtual void SetName(CString);
-	virtual CString GetName()const;
 
 	virtual void SetQuantity(int);
 	virtual int GetQuantity() const;

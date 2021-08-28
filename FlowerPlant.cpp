@@ -32,10 +32,6 @@ int FlowerPlant::GetYear()const {
 
 }
 
-CString FlowerPlant::GetName()const {
-	return this->name;
-}
-
 void FlowerPlant::Serialize(CArchive& ar) {
 	CObject::Serialize(ar);
 	if (ar.IsStoring()) {
@@ -69,7 +65,4 @@ void FlowerPlant::SetMonth(int month) {
 }
 void FlowerPlant::SetYear(int year) {
 	this->year = year;
-}
-void FlowerPlant::SetName(CString name) {
-	this->name = name;
 }

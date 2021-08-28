@@ -3,18 +3,32 @@
 //
 
 #include "pch.h"
+#include <fstream>
+#include <list>
+#include <string>
 #include "framework.h"
 #include "PlantShop.h"
+#include "BasePlant.h"
+#include "FlowerPlant.h"
+#include "SpicePlant.h"
+#include "FlowerGift.h"
+#include "ColorFlower.h"
 #include "PlantShopDlg.h"
 #include "afxdialogex.h"
+using namespace std;
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
 #include "InsertDlg.h"
+#include "DeleteDlg.h"
+
 
 
 // CAboutDlg dialog used for App About
+
+list<BasePlant> listPlants;
+list<BasePlant>::iterator iterator_plants;
 
 class CAboutDlg : public CDialogEx
 {
@@ -66,7 +80,10 @@ BEGIN_MESSAGE_MAP(CPlantShopDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
-	ON_BN_CLICKED(IDC_BUTTON1, &CPlantShopDlg::OnBnClickedButton1)
+	ON_BN_CLICKED(IDC_BUTTON1, &CPlantShopDlg::OnBnClickedInsertBtn)
+	ON_BN_CLICKED(IDC_ExportBtn, &CPlantShopDlg::OnBnClickedExportbtn)
+	ON_BN_CLICKED(IDC_IMPORT_BTN, &CPlantShopDlg::OnBnClickedImportBtn)
+	ON_BN_CLICKED(IDC_REMOVE_BTN, &CPlantShopDlg::OnBnClickedRemoveBtn)
 END_MESSAGE_MAP()
 
 
@@ -155,10 +172,119 @@ HCURSOR CPlantShopDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+void CPlantShopDlg::draw(CPaintDC* pDC) {
+	CString num;
+	int x = 0, y = 65;
+	int spacing = 35;
 
+	iterator_plants = listPlants.begin();
 
-void CPlantShopDlg::OnBnClickedButton1()
-{
+	for (int i = 0; i < listPlants.size(); i++) {
+		num.Format(_T("%d"), i + 1);
+
+		y += spacing;
+
+		//Drawing the text
+		iterator_plants->DrawNumber(pDC, x, y, num + _T("."));
+		iterator_plants->Draw(pDC, x + 25, y);
+		iterator_plants++;
+	}
+}
+
+void CPlantShopDlg::OnBnClickedInsertBtn() {
 	InsertDlg insertDlg;
-	insertDlg.DoModal();
+	if (insertDlg.DoModal() == IDOK) {
+		switch (insertDlg.type) {
+		case 0: {
+			FlowerPlant plant(insertDlg.name, insertDlg.date.GetDay(), insertDlg.date.GetMonth(), insertDlg.date.GetYear());
+			listPlants.push_back(plant);
+		}case 1: {
+			ColorFlower plant(insertDlg.name, insertDlg.date.GetDay(), insertDlg.date.GetMonth(), insertDlg.date.GetYear(), insertDlg.plantColor.GetColor());
+			listPlants.push_back(plant);
+		}case 2: {
+			FlowerGift plant(insertDlg.name, insertDlg.date.GetDay(), insertDlg.date.GetMonth(), insertDlg.date.GetYear(), insertDlg.greeting);
+			listPlants.push_back(plant);
+		}case 3: {
+			SpicePlant plant(insertDlg.name, insertDlg.plantColor.GetColor(), insertDlg.quantity);
+			listPlants.push_back(plant);
+		}
+		}
+	}
+	CPaintDC dc(this);
+	draw(&dc);
+	Invalidate();
+	UpdateWindow();
+}
+
+
+void CPlantShopDlg::OnBnClickedRemoveBtn()
+{
+	DeleteDlg deleteDlg;
+	if (deleteDlg.DoModal() == IDOK) {
+		if (deleteDlg.toDelete > listPlants.size())
+			AfxThrowInvalidArgException();
+		else {
+			iterator_plants = listPlants.begin();
+			for (int i = 0; i < deleteDlg.toDelete - 1; i++) iterator_plants++;
+
+			listPlants.erase(iterator_plants);
+		}
+	}
+	CPaintDC dc(this);
+	draw(&dc);
+	Invalidate();
+	UpdateWindow();
+}
+
+
+void CPlantShopDlg::OnBnClickedExportbtn()
+{
+	ofstream myfile("PlantsSaveSize.txt");
+	myfile << listPlants.size();
+	myfile.close();
+	CFile file;
+
+	file.Open(L"PlantsSave.hse", CFile::modeCreate | CFile::modeWrite);
+	CArchive ar(&file, CArchive::store);
+
+	iterator_plants = listPlants.begin();
+	for (int i = 0; i < listPlants.size(); i++) {
+		iterator_plants->Serialize(ar);
+		iterator_plants++;
+	}
+	ar.Close();
+	file.Close();
+}
+
+
+void CPlantShopDlg::OnBnClickedImportBtn()
+{
+	int size;
+	listPlants.clear();
+
+	string line;
+	ifstream myfile("PlantsSaveSize.txt");
+	while (getline(myfile, line))
+	{
+		size = stoi(line);
+	}
+
+	CFile file;
+	file.Open(L"PlantsSave.hse", CFile::modeRead);
+	CArchive ar(&file, CArchive::load);
+	iterator_plants = listPlants.begin();
+	for (int i = 0; i < size; i++) {
+		BasePlant temp;
+		temp.Serialize(ar);
+		listPlants.push_back(temp);
+
+	}
+	ar.Close();
+	file.Close();
+	myfile.close();
+
+	CPaintDC dc(this);
+	draw(&dc);
+	Invalidate();
+	UpdateWindow();
 }

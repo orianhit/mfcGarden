@@ -30,7 +30,11 @@ protected:
 	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
+	void draw(CPaintDC* pDC);
 	DECLARE_MESSAGE_MAP()
 public:
-	afx_msg void OnBnClickedButton1();
+	afx_msg void OnBnClickedInsertBtn();
+	afx_msg void OnBnClickedExportbtn();
+	afx_msg void OnBnClickedImportBtn();
+	afx_msg void OnBnClickedRemoveBtn();
 };

@@ -183,8 +183,9 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="AbstractPlant.h" />
+    <ClInclude Include="BasePlant.h" />
     <ClInclude Include="ColorFlower.h" />
+    <ClInclude Include="DeleteDlg.h" />
     <ClInclude Include="FlowerGift.h" />
     <ClInclude Include="FlowerPlant.h" />
     <ClInclude Include="framework.h" />
@@ -197,7 +198,9 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BasePlant.cpp" />
     <ClCompile Include="ColorFlower.cpp" />
+    <ClCompile Include="DeleteDlg.cpp" />
     <ClCompile Include="FlowerGift.cpp" />
     <ClCompile Include="FlowerPlant.cpp" />
     <ClCompile Include="InsertDlg.cpp" />

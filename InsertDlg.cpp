@@ -5,7 +5,7 @@
 #include "PlantShop.h"
 #include "InsertDlg.h"
 #include "afxdialogex.h"
-#include "AbstractPlant.h"
+#include "BasePlant.h"
 #include "FlowerPlant.h"
 #include "SpicePlant.h"
 #include "ColorFlower.h"
@@ -23,7 +23,6 @@ BOOL InsertDlg::OnInitDialog()
 {
     CDialog::OnInitDialog();
 
-    OK_btn.EnableWindow(FALSE);
     plantName.SetWindowText(_T("Your plant name"));
 
     return TRUE;
@@ -67,6 +66,7 @@ void InsertDlg::OnBnClickedFlowerOption()
     plantColor.EnableWindow(FALSE);
     plantGreeting.EnableWindow(FALSE);
     plantQuantity.EnableWindow(FALSE);
+    plantDate.EnableWindow(TRUE);
 
     OK_btn.EnableWindow(TRUE);
 }
@@ -77,6 +77,7 @@ void InsertDlg::OnBnClickedColorFlowerOption()
     plantColor.EnableWindow(TRUE);
     plantGreeting.EnableWindow(FALSE);
     plantQuantity.EnableWindow(FALSE);
+    plantDate.EnableWindow(TRUE);
 
     OK_btn.EnableWindow(TRUE);
 }
@@ -87,6 +88,7 @@ void InsertDlg::OnBnClickedGiftFlowerOption()
     plantColor.EnableWindow(FALSE);
     plantGreeting.EnableWindow(TRUE);
     plantQuantity.EnableWindow(FALSE);
+    plantDate.EnableWindow(TRUE);
 
     OK_btn.EnableWindow(TRUE);
 }
@@ -97,6 +99,7 @@ void InsertDlg::OnBnClickedSpiceOption()
     plantColor.EnableWindow(TRUE);
     plantGreeting.EnableWindow(FALSE);
     plantQuantity.EnableWindow(TRUE);
+    plantDate.EnableWindow(FALSE);
 
     OK_btn.EnableWindow(TRUE);
 }
@@ -104,25 +107,23 @@ void InsertDlg::OnBnClickedSpiceOption()
 
 void InsertDlg::OnBnClickedOk()
 {
-    COleDateTime time;
-    plantDate.GetCurSel(time);
-    CString name;
-    plantName.GetWindowText(name);
-    CString greeting;
-    plantGreeting.GetWindowText(greeting);
     CString quantityTxt;
+    plantDate.GetCurSel(date);
+    plantName.GetWindowText(name);
+    plantGreeting.GetWindowText(greeting);
     plantQuantity.GetWindowText(quantityTxt);
-    int quantity = _ttoi(quantityTxt);
+    quantity = _ttoi(quantityTxt);
+
     
 
     if (flowerOption.GetCheck()) {
-        AbstractPlant *fp = new FlowerPlant(name, time.GetDay(), time.GetMonth(), time.GetYear());
+        type = 0;
     } if (colorFlowerOption) {
-        AbstractPlant* fp = new ColorFlower(name, time.GetDay(), time.GetMonth(), time.GetYear(), plantColor.GetColor());
+        type = 1;
     } if (giftFlowerOption) {
-        AbstractPlant* fp = new FlowerGift(name, time.GetDay(), time.GetMonth(), time.GetYear(), greeting);
+        type = 2;
     } else {
-        AbstractPlant* fp = new SpicePlant(name, plantColor.GetColor(), quantity);
+        type = 3;
     }
     CDialogEx::OnOK();
 }

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "AbstractPlant.h"
+#include "BasePlant.h"
 
-class FlowerPlant : public AbstractPlant, public CObject {
+class FlowerPlant : public BasePlant {
 public:
 	FlowerPlant(void);
 
@@ -10,12 +10,10 @@ public:
 
 	FlowerPlant(CString, int, int, int);
 
-	virtual CString GetName()const;
 	int GetDay()const;
 	int GetMonth()const;
 	int GetYear()const;
 
-	virtual void SetName(CString);
 	void SetDay(int);
 	void SetMonth(int);
 	void SetYear(int);

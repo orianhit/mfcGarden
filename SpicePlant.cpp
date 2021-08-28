@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "SpicePlant.h"
 #include "PlantShopDlg.h"
-#include "AbstractPlant.h"
+#include "BasePlant.h"
 
 IMPLEMENT_SERIAL(SpicePlant, CObject, 0)
 
@@ -25,14 +25,6 @@ void SpicePlant::SetColor(COLORREF color) {
 
 COLORREF SpicePlant::GetColor()const {
 	return this->color;
-}
-
-void SpicePlant::SetName(CString name) {
-	this->name = name;
-}
-
-CString SpicePlant::GetName()const {
-	return this->name;
 }
 
 void SpicePlant::SetQuantity(int quantity) {
