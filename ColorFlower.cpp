@@ -33,6 +33,7 @@ void ColorFlower::Draw(CPaintDC* points, int x, int y) {
 }
 
 void ColorFlower::DrawNumber(CPaintDC* points, int x, int y, CString number) {
+	points->SetTextColor(this->color);
 	points->TextOutW(x, y, number);
 }
 

@@ -185,7 +185,6 @@ void CPlantShopDlg::draw(CPaintDC* pDC) {
 		y += spacing;
 
 		//Drawing the text
-		pDC->TextOutW(x, y, num);
 		(*iplant)->DrawNumber(pDC, x, y, num + _T("."));
 		(*iplant)->Draw(pDC, x + 25, y);
 	}

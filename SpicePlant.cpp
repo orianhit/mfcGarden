@@ -31,8 +31,10 @@ int SpicePlant::GetQuantity() const {
 }
 
 void SpicePlant::Draw(CPaintDC* points, int x, int y) {
+	CString numQ;
+	numQ.Format(_T("%d"), this->quantity);
 	points->SetTextColor(this->color);
-	points->TextOutW(x, y, this->name);
+	points->TextOutW(x, y, this->name + _T(" with quantity : ") + numQ);
 }
 
 void SpicePlant::DrawNumber(CPaintDC* points, int x, int y, CString number) {
