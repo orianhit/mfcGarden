@@ -7,15 +7,19 @@
 
 BasePlant::BasePlant() {}
 
-BasePlant::BasePlant(const BasePlant& msg) {
-	this->name = msg.GetName();
+BasePlant::BasePlant(const BasePlant& other) {
+	this->name = other.name;
+}
+
+BasePlant::BasePlant(CString name) {
+	this->name = name;
 }
 
 void BasePlant::SetName(CString name) {
 	this->name = name;
 }
 
-CString BasePlant::GetName()const {
+CString BasePlant::GetName() const {
 	return this->name;
 }
 

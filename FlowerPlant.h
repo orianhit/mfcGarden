@@ -28,7 +28,6 @@ public:
 
 protected:
 	DECLARE_SERIAL(FlowerPlant);
-	CString name;
 	int day, month, year;
 };
 

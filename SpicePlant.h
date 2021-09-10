@@ -18,14 +18,13 @@ public:
 	virtual void SetQuantity(int);
 	virtual int GetQuantity() const;
 
-	virtual void Draw(CPaintDC*, int x, int y);
-	virtual void DrawNumber(CPaintDC*, int x, int y, CString);
+	void Draw(CPaintDC*, int x, int y);
+	void DrawNumber(CPaintDC*, int x, int y, CString);
 
 	void Serialize(CArchive&);
 
 protected:
 	COLORREF color;
-	CString name;
 	int quantity;
 	DECLARE_SERIAL(SpicePlant);
 };

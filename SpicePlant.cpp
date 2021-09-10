@@ -7,15 +7,10 @@ IMPLEMENT_SERIAL(SpicePlant, CObject, 0)
 
 SpicePlant::SpicePlant() {}
 
-SpicePlant::SpicePlant(const SpicePlant& msg) {
-	this->color = msg.GetColor();
-	this->name = msg.GetName();
-	this->quantity = msg.GetQuantity();
-}
+SpicePlant::SpicePlant(const SpicePlant& other): SpicePlant(other.name, other.color, other.quantity) {}
 
-SpicePlant::SpicePlant(CString name, COLORREF color, int quantity) {
+SpicePlant::SpicePlant(CString name, COLORREF color, int quantity): BasePlant(name) {
 	this->color = color;
-	this->name = name;
 	this->quantity = quantity;
 }
 

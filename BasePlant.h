@@ -3,6 +3,7 @@ class BasePlant : public CObject {
 public:
 	BasePlant();
 	BasePlant(const BasePlant&);
+	BasePlant(CString);
 	virtual ~BasePlant() {};
 
 	void SetName(CString);

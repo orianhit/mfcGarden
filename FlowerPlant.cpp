@@ -6,13 +6,13 @@ IMPLEMENT_SERIAL(FlowerPlant, CObject, 0)
 
 FlowerPlant::FlowerPlant() { }
 
-FlowerPlant::FlowerPlant(const FlowerPlant& other) {
+FlowerPlant::FlowerPlant(const FlowerPlant& other): BasePlant(other) {
 	this->day = other.day;
 	this->month = other.month;
 	this->year = other.year;
 }
 
-FlowerPlant::FlowerPlant(CString name, int day, int month, int year) {
+FlowerPlant::FlowerPlant(CString name, int day, int month, int year): BasePlant(name) {
 	this->day = day;
 	this->month = month;
 	this->year = year;

@@ -27,8 +27,8 @@ using namespace std;
 
 // CAboutDlg dialog used for App About
 
-list<BasePlant> listPlants;
-list<BasePlant>::iterator iterator_plants;
+list<BasePlant*> listPlants;
+list<BasePlant*>::iterator iplant;
 
 class CAboutDlg : public CDialogEx
 {
@@ -145,7 +145,8 @@ void CPlantShopDlg::OnPaint()
 	if (IsIconic())
 	{
 		CPaintDC dc(this); // device context for painting
-
+		CDialogEx::OnPaint();
+		draw(&dc);
 		SendMessage(WM_ICONERASEBKGND, reinterpret_cast<WPARAM>(dc.GetSafeHdc()), 0);
 
 		// Center icon in client rectangle
@@ -161,7 +162,9 @@ void CPlantShopDlg::OnPaint()
 	}
 	else
 	{
+		CPaintDC dc(this);
 		CDialogEx::OnPaint();
+		draw(&dc);
 	}
 }
 
@@ -174,20 +177,17 @@ HCURSOR CPlantShopDlg::OnQueryDragIcon()
 
 void CPlantShopDlg::draw(CPaintDC* pDC) {
 	CString num;
-	int x = 0, y = 65;
+	int x = 0, y = 65, i = 0;
 	int spacing = 35;
-
-	iterator_plants = listPlants.begin();
-
-	for (int i = 0; i < listPlants.size(); i++) {
-		num.Format(_T("%d"), i + 1);
+	for (iplant = listPlants.begin(); iplant != listPlants.end(); iplant++) {
+		num.Format(_T("%d"), ++i);
 
 		y += spacing;
 
 		//Drawing the text
-		iterator_plants->DrawNumber(pDC, x, y, num + _T("."));
-		iterator_plants->Draw(pDC, x + 25, y);
-		iterator_plants++;
+		pDC->TextOutW(x, y, num);
+		(*iplant)->DrawNumber(pDC, x, y, num + _T("."));
+		(*iplant)->Draw(pDC, x + 25, y);
 	}
 }
 
@@ -195,19 +195,23 @@ void CPlantShopDlg::OnBnClickedInsertBtn() {
 	InsertDlg insertDlg;
 	if (insertDlg.DoModal() == IDOK) {
 		switch (insertDlg.type) {
-		case 0: {
-			FlowerPlant plant(insertDlg.name, insertDlg.date.GetDay(), insertDlg.date.GetMonth(), insertDlg.date.GetYear());
-			listPlants.push_back(plant);
-		}case 1: {
-			ColorFlower plant(insertDlg.name, insertDlg.date.GetDay(), insertDlg.date.GetMonth(), insertDlg.date.GetYear(), insertDlg.plantColor.GetColor());
-			listPlants.push_back(plant);
-		}case 2: {
-			FlowerGift plant(insertDlg.name, insertDlg.date.GetDay(), insertDlg.date.GetMonth(), insertDlg.date.GetYear(), insertDlg.greeting);
-			listPlants.push_back(plant);
-		}case 3: {
-			SpicePlant plant(insertDlg.name, insertDlg.plantColor.GetColor(), insertDlg.quantity);
-			listPlants.push_back(plant);
-		}
+			case 0: {
+				FlowerPlant* plant = new FlowerPlant(insertDlg.name, insertDlg.date.GetDay(), insertDlg.date.GetMonth(), insertDlg.date.GetYear());
+				listPlants.push_back(plant);
+				break;
+			}case 1: {
+				ColorFlower* plant = new ColorFlower(insertDlg.name, insertDlg.date.GetDay(), insertDlg.date.GetMonth(), insertDlg.date.GetYear(), insertDlg.plantColor.GetColor());
+				listPlants.push_back(plant);
+				break;
+			}case 2: {
+				FlowerGift *plant = new FlowerGift(insertDlg.name, insertDlg.date.GetDay(), insertDlg.date.GetMonth(), insertDlg.date.GetYear(), insertDlg.greeting);
+				listPlants.push_back(plant);
+				break;
+			}case 3: {
+				SpicePlant* plant = new SpicePlant(insertDlg.name, insertDlg.plantColor.GetColor(), insertDlg.quantity);
+				listPlants.push_back(plant);
+				break;
+			}
 		}
 	}
 	CPaintDC dc(this);
@@ -224,10 +228,10 @@ void CPlantShopDlg::OnBnClickedRemoveBtn()
 		if (deleteDlg.toDelete > listPlants.size())
 			AfxThrowInvalidArgException();
 		else {
-			iterator_plants = listPlants.begin();
-			for (int i = 0; i < deleteDlg.toDelete - 1; i++) iterator_plants++;
+			iplant = listPlants.begin();
+			for (int i = 0; i < deleteDlg.toDelete - 1; i++) iplant++;
 
-			listPlants.erase(iterator_plants);
+			listPlants.erase(iplant);
 		}
 	}
 	CPaintDC dc(this);
@@ -247,10 +251,10 @@ void CPlantShopDlg::OnBnClickedExportbtn()
 	file.Open(L"PlantsSave.hse", CFile::modeCreate | CFile::modeWrite);
 	CArchive ar(&file, CArchive::store);
 
-	iterator_plants = listPlants.begin();
+	iplant = listPlants.begin();
 	for (int i = 0; i < listPlants.size(); i++) {
-		iterator_plants->Serialize(ar);
-		iterator_plants++;
+		(*iplant)->Serialize(ar);
+		iplant++;
 	}
 	ar.Close();
 	file.Close();
@@ -272,12 +276,11 @@ void CPlantShopDlg::OnBnClickedImportBtn()
 	CFile file;
 	file.Open(L"PlantsSave.hse", CFile::modeRead);
 	CArchive ar(&file, CArchive::load);
-	iterator_plants = listPlants.begin();
+	iplant = listPlants.begin();
 	for (int i = 0; i < size; i++) {
 		BasePlant temp;
 		temp.Serialize(ar);
-		listPlants.push_back(temp);
-
+		listPlants.push_back(&temp);
 	}
 	ar.Close();
 	file.Close();

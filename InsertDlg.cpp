@@ -118,9 +118,9 @@ void InsertDlg::OnBnClickedOk()
 
     if (flowerOption.GetCheck()) {
         type = 0;
-    } if (colorFlowerOption) {
+    } else if (colorFlowerOption.GetCheck()) {
         type = 1;
-    } if (giftFlowerOption) {
+    } else if (giftFlowerOption.GetCheck()) {
         type = 2;
     } else {
         type = 3;
