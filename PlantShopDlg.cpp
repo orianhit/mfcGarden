@@ -22,6 +22,7 @@ using namespace std;
 #endif
 #include "InsertDlg.h"
 #include "DeleteDlg.h"
+#include "SelectDlg.h"
 
 
 
@@ -84,6 +85,7 @@ BEGIN_MESSAGE_MAP(CPlantShopDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_ExportBtn, &CPlantShopDlg::OnBnClickedExportbtn)
 	ON_BN_CLICKED(IDC_IMPORT_BTN, &CPlantShopDlg::OnBnClickedImportBtn)
 	ON_BN_CLICKED(IDC_REMOVE_BTN, &CPlantShopDlg::OnBnClickedRemoveBtn)
+	ON_BN_CLICKED(IDC_EDIT_BTN, &CPlantShopDlg::OnBnClickedEditBtn)
 END_MESSAGE_MAP()
 
 
@@ -193,30 +195,9 @@ void CPlantShopDlg::draw(CPaintDC* pDC) {
 void CPlantShopDlg::OnBnClickedInsertBtn() {
 	InsertDlg insertDlg;
 	if (insertDlg.DoModal() == IDOK) {
-		switch (insertDlg.type) {
-			case 0: {
-				FlowerPlant* plant = new FlowerPlant(insertDlg.name, insertDlg.date.GetDay(), insertDlg.date.GetMonth(), insertDlg.date.GetYear());
-				listPlants.push_back(plant);
-				break;
-			}case 1: {
-				ColorFlower* plant = new ColorFlower(insertDlg.name, insertDlg.date.GetDay(), insertDlg.date.GetMonth(), insertDlg.date.GetYear(), insertDlg.plantColor.GetColor());
-				listPlants.push_back(plant);
-				break;
-			}case 2: {
-				FlowerGift *plant = new FlowerGift(insertDlg.name, insertDlg.date.GetDay(), insertDlg.date.GetMonth(), insertDlg.date.GetYear(), insertDlg.greeting);
-				listPlants.push_back(plant);
-				break;
-			}case 3: {
-				SpicePlant* plant = new SpicePlant(insertDlg.name, insertDlg.plantColor.GetColor(), insertDlg.quantity);
-				listPlants.push_back(plant);
-				break;
-			}
-		}
+		pushNewPlant(insertDlg);
 	}
-	CPaintDC dc(this);
-	draw(&dc);
-	Invalidate();
-	UpdateWindow();
+	reDraw();
 }
 
 
@@ -233,10 +214,7 @@ void CPlantShopDlg::OnBnClickedRemoveBtn()
 			listPlants.erase(iplant);
 		}
 	}
-	CPaintDC dc(this);
-	draw(&dc);
-	Invalidate();
-	UpdateWindow();
+	reDraw();
 }
 
 
@@ -285,8 +263,66 @@ void CPlantShopDlg::OnBnClickedImportBtn()
 	file.Close();
 	myfile.close();
 
+	reDraw();
+}
+
+
+void CPlantShopDlg::OnBnClickedEditBtn(){
+	SelectDlg selectDlg;
+	if (selectDlg.DoModal() == IDOK) {
+		if (selectDlg.toEdit > listPlants.size())
+			AfxThrowInvalidArgException();
+		else {
+			iplant = listPlants.begin();
+			for (int i = 0; i < selectDlg.toEdit - 1; i++) iplant++;
+			InsertDlg insertDlg;
+
+			insertDlg.type = (*iplant)->GetType();
+			insertDlg.name = (*iplant)->GetName();
+			insertDlg.greeting = (*iplant)->GetGreeting();
+			insertDlg.color = (*iplant)->GetColor();
+			insertDlg.quantity = (*iplant)->GetQuantity();
+			insertDlg.date = (*iplant)->GetDate();
+
+			if (insertDlg.DoModal() == IDOK) {
+				pushNewPlant(insertDlg);
+
+				iplant = listPlants.begin();
+				for (int i = 0; i < selectDlg.toEdit - 1; i++) iplant++;
+
+				listPlants.erase(iplant);
+			}
+		}
+	}
+	reDraw();
+}
+
+void CPlantShopDlg::reDraw()
+{
 	CPaintDC dc(this);
 	draw(&dc);
 	Invalidate();
 	UpdateWindow();
+}
+
+void CPlantShopDlg::pushNewPlant(InsertDlg& insertDlg) {
+	switch (insertDlg.type) {
+		case 1: {
+			FlowerPlant* plant = new FlowerPlant(insertDlg.name, insertDlg.date.GetDay(), insertDlg.date.GetMonth(), insertDlg.date.GetYear());
+			listPlants.push_back(plant);
+			break;
+		}case 2: {
+			ColorFlower* plant = new ColorFlower(insertDlg.name, insertDlg.date.GetDay(), insertDlg.date.GetMonth(), insertDlg.date.GetYear(), insertDlg.plantColor.GetColor());
+			listPlants.push_back(plant);
+			break;
+		}case 3: {
+			FlowerGift* plant = new FlowerGift(insertDlg.name, insertDlg.date.GetDay(), insertDlg.date.GetMonth(), insertDlg.date.GetYear(), insertDlg.greeting);
+			listPlants.push_back(plant);
+			break;
+		}case 4: {
+			SpicePlant* plant = new SpicePlant(insertDlg.name, insertDlg.plantColor.GetColor(), insertDlg.quantity);
+			listPlants.push_back(plant);
+			break;
+		}
+	}
 }

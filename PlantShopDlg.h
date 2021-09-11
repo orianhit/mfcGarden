@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include "InsertDlg.h"
+
 
 // CPlantShopDlg dialog
 class CPlantShopDlg : public CDialogEx
@@ -37,4 +39,7 @@ public:
 	afx_msg void OnBnClickedExportbtn();
 	afx_msg void OnBnClickedImportBtn();
 	afx_msg void OnBnClickedRemoveBtn();
+	afx_msg void OnBnClickedEditBtn();
+	void reDraw();
+	void pushNewPlant(InsertDlg& insertDlg);
 };

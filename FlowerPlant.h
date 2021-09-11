@@ -14,9 +14,13 @@ public:
 	int GetMonth()const;
 	int GetYear()const;
 
+	virtual COleDateTime GetDate() const;
+
 	void SetDay(int);
 	void SetMonth(int);
 	void SetYear(int);
+
+	virtual int GetType() const;
 
 	virtual ~FlowerPlant() {};
 

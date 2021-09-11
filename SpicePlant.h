@@ -18,6 +18,8 @@ public:
 	virtual void SetQuantity(int);
 	virtual int GetQuantity() const;
 
+	virtual int GetType() const;
+
 	void Draw(CPaintDC*, int x, int y);
 	void DrawNumber(CPaintDC*, int x, int y, CString);
 

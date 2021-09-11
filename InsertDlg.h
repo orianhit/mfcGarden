@@ -39,6 +39,7 @@ public:
 	CEdit plantQuantity;
 
 	COleDateTime date;
+	COLORREF color;
 	CString name;
 	CString greeting;
 	int quantity;

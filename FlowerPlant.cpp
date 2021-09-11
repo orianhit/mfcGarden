@@ -32,6 +32,11 @@ int FlowerPlant::GetYear()const {
 
 }
 
+COleDateTime FlowerPlant::GetDate() const {
+	COleDateTime dateOne(this->year, this->month, this->day, 12, 0, 0);
+	return dateOne;
+}
+
 void FlowerPlant::Serialize(CArchive& ar) {
 	CObject::Serialize(ar);
 	if (ar.IsStoring()) {
@@ -65,4 +70,8 @@ void FlowerPlant::SetMonth(int month) {
 }
 void FlowerPlant::SetYear(int year) {
 	this->year = year;
+}
+
+int FlowerPlant::GetType() const {
+	return 1;
 }

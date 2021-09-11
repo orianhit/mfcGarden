@@ -194,6 +194,7 @@
     <ClInclude Include="PlantShop.h" />
     <ClInclude Include="PlantShopDlg.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="SelectDlg.h" />
     <ClInclude Include="SpicePlant.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -212,6 +213,7 @@
     </ClCompile>
     <ClCompile Include="PlantShop.cpp" />
     <ClCompile Include="PlantShopDlg.cpp" />
+    <ClCompile Include="SelectDlg.cpp" />
     <ClCompile Include="SpicePlant.cpp" />
   </ItemGroup>
   <ItemGroup>

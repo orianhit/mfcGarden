@@ -11,6 +11,8 @@ public:
 	COLORREF GetColor()const;
 	void SetColor(COLORREF color);
 
+	virtual int GetType() const;
+
 	void Serialize(CArchive&);
 
 	void Draw(CPaintDC*, int x, int y);

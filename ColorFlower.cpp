@@ -41,6 +41,10 @@ void ColorFlower::SetColor(COLORREF color) {
 	this->color = color;
 }
 
+int ColorFlower::GetType() const{
+	return 2;
+}
+
 COLORREF ColorFlower::GetColor()const {
 	return this->color;
 }

@@ -23,7 +23,38 @@ BOOL InsertDlg::OnInitDialog()
 {
     CDialog::OnInitDialog();
 
-    plantName.SetWindowText(_T("Your plant name"));
+    if (quantity) {
+        CString quantityTxt;
+        quantityTxt.Format(_T("%d"), quantity);
+        plantQuantity.SetWindowText(quantityTxt);
+    }
+
+    if (name) plantName.SetWindowText(name);
+    else plantName.SetWindowText(_T("Your plant name"));
+
+    switch (type) {
+        case 1: {
+            flowerOption.SetCheck(TRUE);
+            OnBnClickedFlowerOption();
+            break;
+        }case 2: {
+            colorFlowerOption.SetCheck(TRUE);
+            OnBnClickedColorFlowerOption();
+            break;
+        }case 3: {
+            giftFlowerOption.SetCheck(TRUE);
+            OnBnClickedGiftFlowerOption();
+            break;
+        }case 4: {
+            spiceOption.SetCheck(TRUE);
+            OnBnClickedSpiceOption();
+            break;
+        }
+    }
+
+    plantGreeting.SetWindowText(greeting);
+    plantColor.SetColor(color);
+    plantDate.SetCurSel(date);
 
     return TRUE;
 }
@@ -108,6 +139,7 @@ void InsertDlg::OnBnClickedSpiceOption()
 void InsertDlg::OnBnClickedOk()
 {
     CString quantityTxt;
+    color = plantColor.GetColor();
     plantDate.GetCurSel(date);
     plantName.GetWindowText(name);
     plantGreeting.GetWindowText(greeting);
@@ -117,13 +149,13 @@ void InsertDlg::OnBnClickedOk()
     
 
     if (flowerOption.GetCheck()) {
-        type = 0;
-    } else if (colorFlowerOption.GetCheck()) {
         type = 1;
-    } else if (giftFlowerOption.GetCheck()) {
+    } else if (colorFlowerOption.GetCheck()) {
         type = 2;
-    } else {
+    } else if (giftFlowerOption.GetCheck()) {
         type = 3;
+    } else {
+        type = 4;
     }
     CDialogEx::OnOK();
 }

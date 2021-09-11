@@ -30,6 +30,11 @@ int SpicePlant::GetQuantity() const {
 	return this->quantity;
 }
 
+int SpicePlant::GetType() const {
+	return 4;
+}
+
+
 void SpicePlant::Draw(CPaintDC* points, int x, int y) {
 	CString numQ;
 	numQ.Format(_T("%d"), this->quantity);

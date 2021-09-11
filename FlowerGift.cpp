@@ -40,6 +40,10 @@ void FlowerGift::SetGreetingMsg(CString greeting) {
 	this->greeting = greeting;
 }
 
+int FlowerGift::GetType() const{
+	return 3;
+}
+
 CString FlowerGift::GetGreetingMsg() const{
 	return this->greeting;
 }

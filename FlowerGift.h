@@ -12,6 +12,8 @@ public:
 	CString GetGreetingMsg() const;
 	void SetGreetingMsg(CString);
 
+	virtual int GetType() const;
+
 	void Serialize(CArchive&);
 
 	void Draw(CPaintDC*, int x, int y);
