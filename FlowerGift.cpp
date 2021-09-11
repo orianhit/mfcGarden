@@ -12,12 +12,11 @@ FlowerGift::FlowerGift(CString name, int day, int month, int year, CString greet
 }
 
 void FlowerGift::Serialize(CArchive& ar) {
-	CObject::Serialize(ar);
+	FlowerPlant::Serialize(ar);
 	if (ar.IsStoring()) {
-		ar << this->name << this->year << this->month << this->day << this->greeting;
-	}
-	else {
-		ar >> this->name >> this->year >> this->month >> this->day >> this->greeting;
+		ar << this->greeting;
+	} else {
+		ar >> this->greeting;
 
 	}
 }

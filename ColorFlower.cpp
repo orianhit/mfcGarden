@@ -12,12 +12,11 @@ ColorFlower::ColorFlower(CString name, int day, int month, int year, COLORREF co
 }
 
 void ColorFlower::Serialize(CArchive& ar) {
-	CObject::Serialize(ar);
+	FlowerPlant::Serialize(ar);
 	if (ar.IsStoring()) {
-		ar << this->name << this->year << this->month << this->day << this->color;
-	}
-	else {
-		ar >> this->name >> this->year >> this->month >> this->day >> this->color;
+		ar << this->color;
+	} else {
+		ar >> this->color;
 	}
 }
 
@@ -30,11 +29,13 @@ void ColorFlower::Draw(CPaintDC* points, int x, int y) {
 	points->SetTextColor(this->color);
 	points->TextOutW(x, y, Syear + L"/" + Smonth + L"/" + Sday);
 	points->TextOutW(x, y + 20, this->name);
+	points->SetTextColor(0x00000000);
 }
 
 void ColorFlower::DrawNumber(CPaintDC* points, int x, int y, CString number) {
 	points->SetTextColor(this->color);
 	points->TextOutW(x, y, number);
+	points->SetTextColor(0x00000000);
 }
 
 void ColorFlower::SetColor(COLORREF color) {

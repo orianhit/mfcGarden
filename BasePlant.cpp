@@ -34,9 +34,8 @@ void BasePlant::DrawNumber(CPaintDC* points, int x, int y, CString number) {
 void BasePlant::Serialize(CArchive& ar) {
 	CObject::Serialize(ar);
 	if (ar.IsStoring()) {
-		ar << this->name;
-	}
-	else {
+		ar << this->GetType() << this->name;
+	} else {
 		ar >> this->name;
 	}
 }

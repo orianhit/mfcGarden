@@ -40,19 +40,20 @@ void SpicePlant::Draw(CPaintDC* points, int x, int y) {
 	numQ.Format(_T("%d"), this->quantity);
 	points->SetTextColor(this->color);
 	points->TextOutW(x, y, this->name + _T(" with quantity : ") + numQ);
+	points->SetTextColor(0x00000000);
 }
 
 void SpicePlant::DrawNumber(CPaintDC* points, int x, int y, CString number) {
 	points->SetTextColor(this->color);
 	points->TextOutW(x, y, number);
+	points->SetTextColor(0x00000000);
 }
 
 void SpicePlant::Serialize(CArchive& ar) {
-	CObject::Serialize(ar);
+	BasePlant::Serialize(ar);
 	if (ar.IsStoring()) {
-		ar << this->name << this->color << this->quantity;
-	}
-	else {
-		ar >> this->name >> this->color << this->quantity;
+		ar << this->color << this->quantity;
+	} else {
+		ar >> this->color << this->quantity;
 	}
 }

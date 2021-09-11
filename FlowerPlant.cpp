@@ -38,13 +38,11 @@ COleDateTime FlowerPlant::GetDate() const {
 }
 
 void FlowerPlant::Serialize(CArchive& ar) {
-	CObject::Serialize(ar);
+	BasePlant::Serialize(ar);
 	if (ar.IsStoring()) {
-		ar << this->name << this->year << this->month << this->day;
-	}
-	else {
-		ar >> this->name >> this->year >> this->month >> this->day;
-
+		ar << this->year << this->month << this->day;
+	} else {
+		ar >> this->year >> this->month >> this->day;
 	}
 }
 

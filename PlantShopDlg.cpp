@@ -229,9 +229,8 @@ void CPlantShopDlg::OnBnClickedExportbtn()
 	CArchive ar(&file, CArchive::store);
 
 	iplant = listPlants.begin();
-	for (int i = 0; i < listPlants.size(); i++) {
+	for (iplant = listPlants.begin(); iplant != listPlants.end(); iplant++) {
 		(*iplant)->Serialize(ar);
-		iplant++;
 	}
 	ar.Close();
 	file.Close();
@@ -253,11 +252,33 @@ void CPlantShopDlg::OnBnClickedImportBtn()
 	CFile file;
 	file.Open(L"PlantsSave.hse", CFile::modeRead);
 	CArchive ar(&file, CArchive::load);
+	int type;
+	
 	iplant = listPlants.begin();
 	for (int i = 0; i < size; i++) {
-		BasePlant temp;
-		temp.Serialize(ar);
-		listPlants.push_back(&temp);
+		BasePlant* temp;
+		ar >> type;
+		switch (type) {
+			case 1: {
+				temp = new FlowerPlant();
+				temp->Serialize(ar);
+				break;
+			}case 2: {
+				temp = new ColorFlower();
+				temp->Serialize(ar);
+				break;
+			}case 3: {
+				temp = new FlowerGift();
+				temp->Serialize(ar);
+				break;
+			}case 4: {
+				temp = new SpicePlant();
+				temp->Serialize(ar);
+				break;
+			}
+		}
+
+		listPlants.push_back(temp);
 	}
 	ar.Close();
 	file.Close();
