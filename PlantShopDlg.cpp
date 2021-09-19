@@ -12,7 +12,7 @@
 #include "FlowerPlant.h"
 #include "SpicePlant.h"
 #include "FlowerGift.h"
-#include "ColorFlower.h"
+#include "FlowerColor.h"
 #include "PlantShopDlg.h"
 #include "afxdialogex.h"
 using namespace std;
@@ -179,8 +179,8 @@ HCURSOR CPlantShopDlg::OnQueryDragIcon()
 
 void CPlantShopDlg::draw(CPaintDC* pDC) {
 	CString num;
-	int x = 0, y = 65, i = 0;
-	int spacing = 35;
+	int x = 30, y = 25, i = 0;
+	int spacing = 60;
 	for (iplant = listPlants.begin(); iplant != listPlants.end(); iplant++) {
 		num.Format(_T("%d"), ++i);
 
@@ -237,8 +237,7 @@ void CPlantShopDlg::OnBnClickedExportbtn()
 }
 
 
-void CPlantShopDlg::OnBnClickedImportBtn()
-{
+void CPlantShopDlg::OnBnClickedImportBtn(){
 	int size;
 	listPlants.clear();
 
@@ -264,7 +263,7 @@ void CPlantShopDlg::OnBnClickedImportBtn()
 				temp->Serialize(ar);
 				break;
 			}case 2: {
-				temp = new ColorFlower();
+				temp = new FlowerColor();
 				temp->Serialize(ar);
 				break;
 			}case 3: {
@@ -333,7 +332,7 @@ void CPlantShopDlg::pushNewPlant(InsertDlg& insertDlg) {
 			listPlants.push_back(plant);
 			break;
 		}case 2: {
-			ColorFlower* plant = new ColorFlower(insertDlg.name, insertDlg.date.GetDay(), insertDlg.date.GetMonth(), insertDlg.date.GetYear(), insertDlg.plantColor.GetColor());
+			FlowerColor* plant = new FlowerColor(insertDlg.name, insertDlg.date.GetDay(), insertDlg.date.GetMonth(), insertDlg.date.GetYear(), insertDlg.plantColor.GetColor());
 			listPlants.push_back(plant);
 			break;
 		}case 3: {

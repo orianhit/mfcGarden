@@ -8,7 +8,7 @@
 #include "BasePlant.h"
 #include "FlowerPlant.h"
 #include "SpicePlant.h"
-#include "ColorFlower.h"
+#include "FlowerColor.h"
 #include "FlowerGift.h"
 
 static char* TypeOptions[4] = { "Flower", "Color Flower", "Gift Flower", "Spice" };
@@ -38,8 +38,8 @@ BOOL InsertDlg::OnInitDialog()
             OnBnClickedFlowerOption();
             break;
         }case 2: {
-            colorFlowerOption.SetCheck(TRUE);
-            OnBnClickedColorFlowerOption();
+            flowerColorOption.SetCheck(TRUE);
+            OnBnClickedFlowerColorOption();
             break;
         }case 3: {
             giftFlowerOption.SetCheck(TRUE);
@@ -76,7 +76,7 @@ void InsertDlg::DoDataExchange(CDataExchange* pDX)
     DDX_Control(pDX, IDC_DATE, plantDate);
     DDX_Control(pDX, IDC_FLOWER_OPTION, flowerOption);
     DDX_Control(pDX, IDOK, OK_btn);
-    DDX_Control(pDX, IDC_COLOR_FLOWER_OPTION, colorFlowerOption);
+    DDX_Control(pDX, IDC_COLOR_FLOWER_OPTION, flowerColorOption);
     DDX_Control(pDX, IDC_GIFT_FLOWER_OPTION, giftFlowerOption);
     DDX_Control(pDX, IDC_SPICE_OPTION, spiceOption);
     DDX_Control(pDX, IDC_PLANT_QUANTITY, plantQuantity);
@@ -85,7 +85,7 @@ void InsertDlg::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(InsertDlg, CDialogEx)
     ON_BN_CLICKED(IDC_FLOWER_OPTION, &InsertDlg::OnBnClickedFlowerOption)
-    ON_BN_CLICKED(IDC_COLOR_FLOWER_OPTION, &InsertDlg::OnBnClickedColorFlowerOption)
+    ON_BN_CLICKED(IDC_COLOR_FLOWER_OPTION, &InsertDlg::OnBnClickedFlowerColorOption)
     ON_BN_CLICKED(IDC_GIFT_FLOWER_OPTION, &InsertDlg::OnBnClickedGiftFlowerOption)
     ON_BN_CLICKED(IDC_SPICE_OPTION, &InsertDlg::OnBnClickedSpiceOption)
     ON_BN_CLICKED(IDOK, &InsertDlg::OnBnClickedOk)
@@ -103,7 +103,7 @@ void InsertDlg::OnBnClickedFlowerOption()
 }
 
 
-void InsertDlg::OnBnClickedColorFlowerOption()
+void InsertDlg::OnBnClickedFlowerColorOption()
 {
     plantColor.EnableWindow(TRUE);
     plantGreeting.EnableWindow(FALSE);
@@ -150,7 +150,7 @@ void InsertDlg::OnBnClickedOk()
 
     if (flowerOption.GetCheck()) {
         type = 1;
-    } else if (colorFlowerOption.GetCheck()) {
+    } else if (flowerColorOption.GetCheck()) {
         type = 2;
     } else if (giftFlowerOption.GetCheck()) {
         type = 3;

@@ -17,7 +17,6 @@ void FlowerGift::Serialize(CArchive& ar) {
 		ar << this->greeting;
 	} else {
 		ar >> this->greeting;
-
 	}
 }
 
@@ -27,8 +26,9 @@ void FlowerGift::Draw(CPaintDC* points, int x, int y) {
 	Smonth.Format(_T("%d"), month);
 	Sday.Format(_T("%d"), day);
 
-	points->TextOutW(x, y, Syear + L"/" + Smonth + L"/" + Sday);
-	points->TextOutW(x, y + 20, this->name + L",  " + this->greeting);
+	points->TextOutW(x, y, L"Flower to gift named " + this->name);
+	points->TextOutW(x, y + 20, L"valid until - " + Syear + L"/" + Smonth + L"/" + Sday);
+	points->TextOutW(x, y + 40, L"includes greeting for the gift: " + this->greeting);
 }
 
 void FlowerGift::DrawNumber(CPaintDC* points, int x, int y, CString number) {

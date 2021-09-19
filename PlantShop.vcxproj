@@ -184,7 +184,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BasePlant.h" />
-    <ClInclude Include="ColorFlower.h" />
+    <ClInclude Include="FlowerColor.h" />
     <ClInclude Include="DeleteDlg.h" />
     <ClInclude Include="FlowerGift.h" />
     <ClInclude Include="FlowerPlant.h" />
@@ -200,7 +200,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BasePlant.cpp" />
-    <ClCompile Include="ColorFlower.cpp" />
+    <ClCompile Include="FlowerColor.cpp" />
     <ClCompile Include="DeleteDlg.cpp" />
     <ClCompile Include="FlowerGift.cpp" />
     <ClCompile Include="FlowerPlant.cpp" />
@@ -223,6 +223,7 @@
     <None Include="res\PlantShop.rc2" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\..\..\Pictures\LivePlant.bmp" />
     <Image Include="res\PlantShop.ico" />
   </ItemGroup>
   <ItemGroup>

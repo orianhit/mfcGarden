@@ -52,8 +52,8 @@ void FlowerPlant::Draw(CPaintDC* points, int x, int y) {
 	Smonth.Format(_T("%d"), month);
 	Sday.Format(_T("%d"), day);
 
-	points->TextOutW(x, y, Syear + L"/" + Smonth + L"/" + Sday );
-	points->TextOutW(x, y + 20, this->name);
+	points->TextOutW(x, y, L"Flower named " + this->name);
+	points->TextOutW(x, y + 20, L"valid until - " + Syear + L"/" + Smonth + L"/" + Sday);
 }
 
 void FlowerPlant::DrawNumber(CPaintDC* points, int x, int y, CString number) {

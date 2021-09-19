@@ -10,7 +10,6 @@
 #define IDR_MAINFRAME                   128
 #define IDR_TYPE_MENU                   133
 #define IDD_DELETE_DIALOG               134
-#define IDD_CHOOSE_DIALOG               135
 #define IDD_SELECT_DIALOG               135
 #define IDC_BUTTON1                     1000
 #define IDC_ADD_BTN                     1000
@@ -41,9 +40,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        140
+#define _APS_NEXT_RESOURCE_VALUE        142
 #define _APS_NEXT_COMMAND_VALUE         32773
-#define _APS_NEXT_CONTROL_VALUE         1030
+#define _APS_NEXT_CONTROL_VALUE         1039
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

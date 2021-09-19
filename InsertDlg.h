@@ -28,12 +28,12 @@ public:
 	CMonthCalCtrl plantDate;
 	CButton flowerOption;
 	afx_msg void OnBnClickedFlowerOption();
-	afx_msg void OnBnClickedColorFlowerOption();
+	afx_msg void OnBnClickedFlowerColorOption();
 	afx_msg void OnBnClickedGiftFlowerOption();
 	afx_msg void OnBnClickedSpiceOption();
 	CButton OK_btn;
 	afx_msg void OnBnClickedOk();
-	CButton colorFlowerOption;
+	CButton flowerColorOption;
 	CButton giftFlowerOption;
 	CButton spiceOption;
 	CEdit plantQuantity;

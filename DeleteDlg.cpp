@@ -11,7 +11,9 @@
 IMPLEMENT_DYNAMIC(DeleteDlg, CDialogEx)
 
 DeleteDlg::DeleteDlg(CWnd* pParent /*=nullptr*/)
-	: CDialogEx(IDD_DELETE_DIALOG, pParent) {}
+	: CDialogEx(IDD_DELETE_DIALOG, pParent) {
+	toDelete = -1;
+}
 
 DeleteDlg::~DeleteDlg(){}
 
