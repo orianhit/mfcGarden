@@ -24,12 +24,7 @@ using namespace std;
 #include "DeleteDlg.h"
 #include "SelectDlg.h"
 
-
-
-// CAboutDlg dialog used for App About
-
 CTypedPtrList <CObList, BasePlant*> listPlants;
-//CList<BasePlant*> listPlants;
 POSITION pos;
 
 class CAboutDlg : public CDialogEx {
