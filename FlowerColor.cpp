@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "FlowerColor.h"
 
+IMPLEMENT_SERIAL(FlowerColor, CObject, 0)
+
 FlowerColor::FlowerColor() { }
 
 FlowerColor::FlowerColor(const FlowerColor& other) : FlowerPlant(other.name, other.day, other.month, other.year) {

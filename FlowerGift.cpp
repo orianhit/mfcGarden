@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "FlowerGift.h"
 
+IMPLEMENT_SERIAL(FlowerGift, CObject, 0)
+
 FlowerGift::FlowerGift() { }
 
 FlowerGift::FlowerGift(const FlowerGift& other) : FlowerPlant(other.name,other.day,other.month,other.year) {

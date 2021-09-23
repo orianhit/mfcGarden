@@ -20,4 +20,5 @@ public:
 	void DrawNumber(CPaintDC*, int x, int y, CString);
 private:
 	COLORREF color;
+	DECLARE_SERIAL(FlowerColor)
 };

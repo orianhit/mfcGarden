@@ -28,11 +28,11 @@ using namespace std;
 
 // CAboutDlg dialog used for App About
 
-CList<BasePlant*> listPlants;
+CTypedPtrList <CObList, BasePlant*> listPlants;
+//CList<BasePlant*> listPlants;
 POSITION pos;
 
-class CAboutDlg : public CDialogEx
-{
+class CAboutDlg : public CDialogEx {
 public:
 	CAboutDlg();
 
@@ -229,13 +229,8 @@ void CPlantShopDlg::OnBnClickedExportbtn()
 	file.Open(L"PlantsSave.hse", CFile::modeCreate | CFile::modeWrite);
 	CArchive ar(&file, CArchive::store);
 
+	listPlants.Serialize(ar);
 
-	pos = listPlants.GetHeadPosition();
-	while (pos) {
-		BasePlant* iplant;
-		iplant = listPlants.GetNext(pos);
-		iplant->Serialize(ar);
-	}
 	ar.Close();
 	file.Close();
 }
@@ -257,31 +252,8 @@ void CPlantShopDlg::OnBnClickedImportBtn(){
 	CArchive ar(&file, CArchive::load);
 	int type;
 	
-	for (int i = 0; i < size; i++) {
-		BasePlant* temp;
-		ar >> type;
-		switch (type) {
-			case 1: {
-				temp = new FlowerPlant();
-				temp->Serialize(ar);
-				break;
-			}case 2: {
-				temp = new FlowerColor();
-				temp->Serialize(ar);
-				break;
-			}case 3: {
-				temp = new FlowerGift();
-				temp->Serialize(ar);
-				break;
-			}case 4: {
-				temp = new SpicePlant();
-				temp->Serialize(ar);
-				break;
-			}
-		}
+	listPlants.Serialize(ar);
 
-		listPlants.AddTail(temp);
-	}
 	ar.Close();
 	file.Close();
 	myfile.close();

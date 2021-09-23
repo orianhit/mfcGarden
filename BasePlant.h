@@ -18,5 +18,6 @@ public:
 
 	virtual void Serialize(CArchive&);
 protected:
+	DECLARE_SERIAL(BasePlant)
 	CString name;
 };

@@ -3,7 +3,7 @@
 #include "PlantShopDlg.h"
 #include "BasePlant.h"
 
-//IMPLEMENT_SERIAL(BasePlant, CObject, 0)
+IMPLEMENT_SERIAL(BasePlant, CObject, 0)
 
 BasePlant::BasePlant() {}
 
@@ -34,7 +34,7 @@ void BasePlant::DrawNumber(CPaintDC* points, int x, int y, CString number) {
 void BasePlant::Serialize(CArchive& ar) {
 	CObject::Serialize(ar);
 	if (ar.IsStoring()) {
-		ar << this->GetType() << this->name;
+		ar << this->name;
 	} else {
 		ar >> this->name;
 	}

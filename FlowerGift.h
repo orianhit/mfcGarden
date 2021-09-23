@@ -21,5 +21,6 @@ public:
 	void DrawNumber(CPaintDC*, int x, int y, CString);
 private:
 	CString greeting;
+	DECLARE_SERIAL(FlowerGift)
 };
 
