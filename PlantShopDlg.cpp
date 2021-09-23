@@ -28,8 +28,8 @@ using namespace std;
 
 // CAboutDlg dialog used for App About
 
-list<BasePlant*> listPlants;
-list<BasePlant*>::iterator iplant;
+CList<BasePlant*> listPlants;
+POSITION pos;
 
 class CAboutDlg : public CDialogEx
 {
@@ -181,14 +181,17 @@ void CPlantShopDlg::draw(CPaintDC* pDC) {
 	CString num;
 	int x = 30, y = 25, i = 0;
 	int spacing = 60;
-	for (iplant = listPlants.begin(); iplant != listPlants.end(); iplant++) {
+
+	pos = listPlants.GetHeadPosition();
+	while (pos)	{
 		num.Format(_T("%d"), ++i);
 
 		y += spacing;
+		BasePlant* iplant;
 
-		//Drawing the text
-		(*iplant)->DrawNumber(pDC, x, y, num + _T("."));
-		(*iplant)->Draw(pDC, x + 25, y);
+		iplant = listPlants.GetNext(pos);
+		iplant->DrawNumber(pDC, x, y, num + _T("."));
+		iplant->Draw(pDC, x + 25, y);
 	}
 }
 
@@ -205,13 +208,11 @@ void CPlantShopDlg::OnBnClickedRemoveBtn()
 {
 	DeleteDlg deleteDlg;
 	if (deleteDlg.DoModal() == IDOK) {
-		if (deleteDlg.toDelete > listPlants.size())
+		if (deleteDlg.toDelete > listPlants.GetSize())
 			AfxThrowInvalidArgException();
 		else {
-			iplant = listPlants.begin();
-			for (int i = 0; i < deleteDlg.toDelete - 1; i++) iplant++;
-
-			listPlants.erase(iplant);
+			pos = listPlants.FindIndex(deleteDlg.toDelete - 1);
+			listPlants.RemoveAt(pos);
 		}
 	}
 	reDraw();
@@ -221,16 +222,19 @@ void CPlantShopDlg::OnBnClickedRemoveBtn()
 void CPlantShopDlg::OnBnClickedExportbtn()
 {
 	ofstream myfile("PlantsSaveSize.txt");
-	myfile << listPlants.size();
+	myfile << listPlants.GetSize();
 	myfile.close();
 	CFile file;
 
 	file.Open(L"PlantsSave.hse", CFile::modeCreate | CFile::modeWrite);
 	CArchive ar(&file, CArchive::store);
 
-	iplant = listPlants.begin();
-	for (iplant = listPlants.begin(); iplant != listPlants.end(); iplant++) {
-		(*iplant)->Serialize(ar);
+
+	pos = listPlants.GetHeadPosition();
+	while (pos) {
+		BasePlant* iplant;
+		iplant = listPlants.GetNext(pos);
+		iplant->Serialize(ar);
 	}
 	ar.Close();
 	file.Close();
@@ -239,7 +243,7 @@ void CPlantShopDlg::OnBnClickedExportbtn()
 
 void CPlantShopDlg::OnBnClickedImportBtn(){
 	int size;
-	listPlants.clear();
+	listPlants.RemoveAll();
 
 	string line;
 	ifstream myfile("PlantsSaveSize.txt");
@@ -253,7 +257,6 @@ void CPlantShopDlg::OnBnClickedImportBtn(){
 	CArchive ar(&file, CArchive::load);
 	int type;
 	
-	iplant = listPlants.begin();
 	for (int i = 0; i < size; i++) {
 		BasePlant* temp;
 		ar >> type;
@@ -277,7 +280,7 @@ void CPlantShopDlg::OnBnClickedImportBtn(){
 			}
 		}
 
-		listPlants.push_back(temp);
+		listPlants.AddTail(temp);
 	}
 	ar.Close();
 	file.Close();
@@ -290,27 +293,25 @@ void CPlantShopDlg::OnBnClickedImportBtn(){
 void CPlantShopDlg::OnBnClickedEditBtn(){
 	SelectDlg selectDlg;
 	if (selectDlg.DoModal() == IDOK) {
-		if (selectDlg.toEdit > listPlants.size())
+		if (selectDlg.toEdit > listPlants.GetSize())
 			AfxThrowInvalidArgException();
 		else {
-			iplant = listPlants.begin();
-			for (int i = 0; i < selectDlg.toEdit - 1; i++) iplant++;
+			pos = listPlants.FindIndex(selectDlg.toEdit - 1);
+			BasePlant *iplant = listPlants.GetAt(pos);
 			InsertDlg insertDlg;
 
-			insertDlg.type = (*iplant)->GetType();
-			insertDlg.name = (*iplant)->GetName();
-			insertDlg.greeting = (*iplant)->GetGreeting();
-			insertDlg.color = (*iplant)->GetColor();
-			insertDlg.quantity = (*iplant)->GetQuantity();
-			insertDlg.date = (*iplant)->GetDate();
+			insertDlg.type = iplant->GetType();
+			insertDlg.name = iplant->GetName();
+			insertDlg.greeting = iplant->GetGreeting();
+			insertDlg.color = iplant->GetColor();
+			insertDlg.quantity = iplant->GetQuantity();
+			insertDlg.date = iplant->GetDate();
 
 			if (insertDlg.DoModal() == IDOK) {
 				pushNewPlant(insertDlg);
 
-				iplant = listPlants.begin();
-				for (int i = 0; i < selectDlg.toEdit - 1; i++) iplant++;
-
-				listPlants.erase(iplant);
+				pos = listPlants.FindIndex(selectDlg.toEdit - 1);
+				listPlants.RemoveAt(pos);
 			}
 		}
 	}
@@ -329,19 +330,19 @@ void CPlantShopDlg::pushNewPlant(InsertDlg& insertDlg) {
 	switch (insertDlg.type) {
 		case 1: {
 			FlowerPlant* plant = new FlowerPlant(insertDlg.name, insertDlg.date.GetDay(), insertDlg.date.GetMonth(), insertDlg.date.GetYear());
-			listPlants.push_back(plant);
+			listPlants.AddTail(plant);
 			break;
 		}case 2: {
 			FlowerColor* plant = new FlowerColor(insertDlg.name, insertDlg.date.GetDay(), insertDlg.date.GetMonth(), insertDlg.date.GetYear(), insertDlg.plantColor.GetColor());
-			listPlants.push_back(plant);
+			listPlants.AddTail(plant);
 			break;
 		}case 3: {
 			FlowerGift* plant = new FlowerGift(insertDlg.name, insertDlg.date.GetDay(), insertDlg.date.GetMonth(), insertDlg.date.GetYear(), insertDlg.greeting);
-			listPlants.push_back(plant);
+			listPlants.AddTail(plant);
 			break;
 		}case 4: {
 			SpicePlant* plant = new SpicePlant(insertDlg.name, insertDlg.plantColor.GetColor(), insertDlg.quantity);
-			listPlants.push_back(plant);
+			listPlants.AddTail(plant);
 			break;
 		}
 	}

@@ -35,7 +35,7 @@ void FlowerGift::DrawNumber(CPaintDC* points, int x, int y, CString number) {
 	points->TextOutW(x, y, number);
 }
 
-void FlowerGift::SetGreetingMsg(CString greeting) {
+void FlowerGift::SetGreeting(CString greeting) {
 	this->greeting = greeting;
 }
 
@@ -43,6 +43,6 @@ int FlowerGift::GetType() const{
 	return 3;
 }
 
-CString FlowerGift::GetGreetingMsg() const{
+CString FlowerGift::GetGreeting() const{
 	return this->greeting;
 }

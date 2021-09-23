@@ -9,8 +9,8 @@ public:
 
 	FlowerGift(CString, int, int, int, CString);
 
-	CString GetGreetingMsg() const;
-	void SetGreetingMsg(CString);
+	CString GetGreeting() const;
+	void SetGreeting(CString);
 
 	virtual int GetType() const;
 

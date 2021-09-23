@@ -54,7 +54,8 @@ BOOL InsertDlg::OnInitDialog()
 
     plantGreeting.SetWindowText(greeting);
     plantColor.SetColor(color);
-    plantDate.SetCurSel(date);
+    if (date) plantDate.SetCurSel(date);
+    else plantDate.SetCurSel(COleDateTime::GetCurrentTime());
 
     return TRUE;
 }
